@@ -11,7 +11,22 @@ const validationSignUpData = (req) => {
     //     throw new Error("FirstName should be 4-50 characters")
     }
 
+    const validateEditProfileData = (req) => {
+        const ALLOWED_UPDATES = [
+            "firstName", "lastName", "photoUrl", "about", "gender", "age", "skills"
+        ]
+          
+        const isEditAlowed = Object.keys(req.body).every((k) => 
+            ALLOWED_UPDATES.includes(k)
+        );
+        return isEditAlowed
+        }
+    
+    
+   
+
 
 module.exports ={
-    validationSignUpData
+    validationSignUpData,
+    validateEditProfileData
 }

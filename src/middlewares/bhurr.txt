@@ -39,7 +39,7 @@ app.patch("/user", async (req, res) => {
 
     try{
         const ALLOWED_UPDATES = [
-            "userId", "photoUrl", "about", "gender", "age", "skills"
+            "firstName", "lastName", "photoUrl", "about", "gender", "age", "skills"
         ]
           
         const isAlowedUpdate = Object.keys(data).every((k) => 
@@ -64,3 +64,30 @@ app.patch("/user", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+const validateEditProfileData = (req) => {
+    const ALLOWED_UPDATES = [
+        "firstName", "lastName", "photoUrl", "about", "gender", "age", "skills"
+    ]
+      
+    const isEditAlowed = Object.keys(req.body).every((k) => 
+        ALLOWED_UPDATES.includes(k)
+    );
+    if (!isEditAlowed) {
+        res.status(400).send("Update not allowed")
+    }
+    }
+
+
+module.exports ={
+    validateEditProfileData,
+}
