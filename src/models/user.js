@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        rquired : true,
+        required : true,
         validate(value) {
             if(!validator.isStrongPassword(value)){
                 throw new Error("Enter a Strong Password:" + value)
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: function () {
             if (this.gender === 'male' || this.gender === 'others') {
-                return "https://www.vecteezy.com/free-vector/male-avatar";
+                return "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671116.jpg?t=st=1744719573~exp=1744723173~hmac=b587364cd4b3bae79d3521ab47cfa1ae4d93769f4b0197723c335ba432136a50&w=740";
             } else {
                 return "https://cdn5.vectorstock.com/i/1000x1000/78/44/avatar-girl-cartoon-vector-42477844.jpg";
             }

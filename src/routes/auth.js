@@ -15,7 +15,6 @@ authRouter.post("/signup", async (req , res )=>{
   
     const { firstName, lastName, emailId, password, gender} = req.body;
     const passwordHash = await  bcrypt.hash(password, 10)
-    console.log(passwordHash)
   
     const user =  new User({
       firstName,
@@ -25,8 +24,14 @@ authRouter.post("/signup", async (req , res )=>{
       gender
     })
     
-    await user.save();
-    res.send("user added succesfully ")
+    const savedUser = await user.save();
+    const token = jwt.sign({_id: savedUser._id}, process.env.JWT_SECRET)    
+   
+        
+        //Add the token to cookie and send the response back to the user 
+
+        res.cookie("token", token) 
+    res.json({ message : "user added succesfully ", data: savedUser})
     } catch(err){
       res.status(400).send("Error  :" + err.message)
     }
@@ -36,9 +41,9 @@ authRouter.post("/login",  async (req, res) => {
     try{
 
         const {emailId , password } = req.body
-       if(!validator.isEmail(emailId)){
-        throw new Error("Email is not valid")
-        }
+      //  if(!validator.isEmail(emailId)){
+      //   throw new Error("Email is not valid")
+      //   }
 
         const user = await User.findOne({emailId: emailId});
         if(!user){
@@ -50,13 +55,16 @@ authRouter.post("/login",  async (req, res) => {
         
         // Create a JWT Token 
 
-        const token = jwt.sign({_id: user._id}, "@ritik")    
+        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)    
    
         
         //Add the token to cookie and send the response back to the user 
 
-        res.cookie("token", token)
-        res.send("Login Successfull!!")
+        res.cookie("token", token) 
+        // {
+        //   expires: new Date(Date.now() + 8 * 3600000)
+        // }
+        res.send(user)
         }else {
             throw new Error("Ivalid Credentials")
         }

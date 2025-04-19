@@ -1,10 +1,10 @@
 const express = require("express");
 const {userAuth} = require("../middlewares/auth")
 const {validateEditProfileData} = require("../utils/validation")
-const profilRouter = express.Router();
+const profileRouter = express.Router();
 
 
-profilRouter.get("/profile/view", userAuth, async(req, res) => {
+profileRouter.get("/profile/view", userAuth, async(req, res) => {
     try {
         
        const user = req.user;
@@ -15,7 +15,7 @@ profilRouter.get("/profile/view", userAuth, async(req, res) => {
          }
     });
 
-profilRouter.patch("/profile/edit", userAuth, async(req, res) => {
+profileRouter.patch("/profile/edit", userAuth, async(req, res) => {
     try {
         if(!validateEditProfileData(req)){
             throw new Error("Invalid Edit Request");
@@ -33,4 +33,4 @@ profilRouter.patch("/profile/edit", userAuth, async(req, res) => {
     }
 })
 
-module.exports = profilRouter;
+module.exports = profileRouter;
