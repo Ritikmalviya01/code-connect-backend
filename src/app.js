@@ -8,7 +8,7 @@ const http = require("http")
 require("dotenv").config()
 
 app.use(cors({
-    origin: "https://code-connect-frontend-two.vercel.app",
+    origin: "https://code-connect-frontend-ten.vercel.app",
     credentials: true
 }))
 app.use(cookieParser())
