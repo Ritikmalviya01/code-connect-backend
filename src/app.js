@@ -38,7 +38,7 @@ connectDB()
 .then(() => {
     console.log("Database connection established....")
     server.listen(3000, () => {
-        console.log("server chl ra he iski do bar bara bajau ")
+        console.log("server chl ra he  ")
     })
 })
 .catch((err) => {
